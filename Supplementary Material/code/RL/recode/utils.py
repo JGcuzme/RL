@@ -2,41 +2,40 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def graph_convert(file_path):
-    """
-    将txt文件里的因果图转换为因果图邻接矩阵
-    :param file_path: 文件路径
-    :return: 邻接矩阵
-    """
-    f = open(file_path, "r")
-    file_content = []
-    for line in f:
-        file_content.append(line.strip())
-
-    f.close()
-    # 确定因果变量数目
-    causal_point = str(file_content[1])
-    causal_point = len(causal_point.split(";"))
-
-    # 确定关系语句位置
-    file_content = file_content[4:-1]
-    causal_relationship = []
-    # 删除无关字符
-    for str1 in file_content:
-        str1 = str1.split(". ")[1]
-        str1 = str1.split(" --> ")
-        str1[0] = str1[0][1]
-        str1[1] = str1[1][1]
-        causal_relationship.append(str1)
-    # print(causal_relationship)
-
-    # 创建因果邻接矩阵
-    true_graph = np.mat(np.zeros((causal_point, causal_point)))
-    for one in causal_relationship:
-        true_graph[int(one[0]) - 1, int(one[1]) - 1] = 1
-
-    return np.asarray(true_graph)
-
+# def graph_convert(file_path):
+#     """
+#     Convert the causal graph in the txt file into a causal graph adjacency matrix
+#     :param file_path: file path
+#     :return: adjacency matrix
+#     """
+#     f = open(file_path, "r")
+#     file_content = []
+#     for line in f:
+#         file_content.append(line.strip())
+#
+#     f.close()
+#     # Determine the number of causal variables
+#     causal_point = str(file_content[1])
+#     causal_point = len(causal_point.split(";"))
+#
+#     # Determine the position of the relational statement
+#     file_content = file_content[4:-1]
+#     causal_relationship = []
+#     # remove extraneous characters
+#     for str1 in file_content:
+#         str1 = str1.split(". ")[1]
+#         str1 = str1.split(" --> ")
+#         str1[0] = str1[0][1]
+#         str1[1] = str1[1][1]
+#         causal_relationship.append(str1)
+#     # print(causal_relationship)
+#
+#     # Create a causal adjacency matrix
+#     true_graph = np.mat(np.zeros((causal_point, causal_point)))
+#     for one in causal_relationship:
+#         true_graph[int(one[0]) - 1, int(one[1]) - 1] = 1
+#
+#     return np.asarray(true_graph)
 
 class output_adj(object):
     """
