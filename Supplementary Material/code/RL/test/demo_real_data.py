@@ -5,8 +5,8 @@ import numpy as np
 from recode.causal_strength import adj_cs
 
 
-X = pd.read_csv("data/768.csv")
-# X = pd.read_csv("data/768_1.csv")
+X = pd.read_csv("Experimental data/768.csv")
+# X = pd.read_csv("Experimental data/768_1.csv")
 X = np.array(X.drop(columns="Outcome"))
 # X = np.array(X.drop(columns="Outcome"))
 

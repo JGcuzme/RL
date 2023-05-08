@@ -5,7 +5,7 @@ import numpy as np
 from recode.causal_strength import adj_cs
 
 
-X = pd.read_csv("C:/Users/14903/Desktop/NHANES/2011-2020/标准化/2011-2020_n_0.csv")
+X = pd.read_csv("Experimental data/2011-2020_1.csv")
 X = np.array(X)
 
 rl = RL(nb_epoch=2000, device_type="gpu", score_type="BIC")
