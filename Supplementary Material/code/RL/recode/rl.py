@@ -236,12 +236,12 @@ class RL(BaseLearner):
         """
 
         self.dag = dag
-        X = Tensor(data, columns=columns)  # 转张量
+        X = Tensor(data, columns=columns)
 
         self.data_size = X.shape[0]
         self.max_length = X.shape[1]
 
-        causal_matrix = self._rl(X)  # 学习
+        causal_matrix = self._rl(X)
         self.causal_matrix = causal_matrix
 
     def _rl(self, X):
