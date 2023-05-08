@@ -5,10 +5,10 @@ from scipy.special import psi
 
 def adj_cs(adj_matrix, data):
     """
-    计算每条因果边的因果强度
-    :param adj_matrix: 因果邻接矩阵
-    :param data: 观测数据
-    :return: 因果强度矩阵
+    Calculate the causal strength of each causal edge
+    :param adj_matrix: causal adjacency matrix
+    :param data: data
+    :return: causal strength matrix
     """
     num = 0
     if type(data) != "numpy.ndarray":
@@ -26,16 +26,16 @@ def adj_cs(adj_matrix, data):
 
 def causal_strength(sam1, sam2, refMeasure=2):
     """
-    计算两个变量间的因果强度
-    :param sam1: 样本1
-    :param sam2: 样本2
-    :param refMeasure: 归一化方式
-    :return: 因果强度 float
+    Computes the causal strength between two variables
+    :param sam1: sample 1
+    :param sam2: sample 2
+    :param refMeasure: Normalization method
+    :return: causal strength(float)
     """
-    # 取实部
+    # Take the real part
     sam1 = np.real(sam1)
     sam2 = np.real(sam2)
-    # 检查输入的参数
+    # Check the entered parameters
     len1 = len(sam1)
     len2 = len(sam2)
     if len1 < 20:
@@ -47,21 +47,21 @@ def causal_strength(sam1, sam2, refMeasure=2):
     if len1 != len2:
         print("Lenghts of sam1 and sam2 must be equal")
         exit(1)
-    # 归一化标准化处理
-    if refMeasure == 1:  # 归一化
+    # Normalization and standardization
+    if refMeasure == 1:  # Normalization
         sam1 = (sam1 - min(sam1)) / (max(sam1) - min(sam1))
         sam2 = (sam2 - min(sam2)) / (max(sam2) - min(sam2))
-    if refMeasure == 2:   # 标准化
+    if refMeasure == 2:   # standardization
         sam1 = (sam1 - np.mean(sam1)) / np.std(sam1)
         sam2 = (sam2 - np.mean(sam2)) / np.std(sam2)
     if refMeasure != 1 and refMeasure != 2:
         print("Warning: unknown reference measure - no scaling applied")
         exit(1)
-    # 熵估计
+    # entropy estimation
     ind1 = np.sort(sam1)
     ind2 = np.sort(sam2)
 
-    # 样本1的熵估计
+    # Entropy estimate for sample 1
     hx = 0
     for i in range(len1 - 1):
         delta = ind1[i + 1] - ind1[i]
@@ -69,7 +69,7 @@ def causal_strength(sam1, sam2, refMeasure=2):
             hx = hx + math.log(abs(delta))
     hx = hx / (len1 - 1) + psi(len1) - psi(1)
 
-    # 样本2的熵估计
+    # Entropy estimate for sample 2
     hy = 0
     for i in range(len2 - 1):
         delta = ind2[i + 1] - ind2[i]
@@ -77,7 +77,7 @@ def causal_strength(sam1, sam2, refMeasure=2):
             hy = hy + math.log(abs(delta))
     hy = hy / (len1 - 1) + psi(len2) - psi(1)
 
-    # 计算因果强度
+    # Calculate causal strength
     strength = 1 / abs(hy - hx)
 
     return strength
