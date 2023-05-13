@@ -1,3 +1,4 @@
+Supplementary file - standardized datasets of Pima Indian diabetes,,,,,,,,
 Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome
 -1.14111,1.91587,0.46404,-0.02405,-1.66744,-0.02473,-0.06323,-0.70074,1
 0.04598,2.47442,-0.1973,1.12521,-0.11517,0.61802,-0.06323,-0.19055,0
